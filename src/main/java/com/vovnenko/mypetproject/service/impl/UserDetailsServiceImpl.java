@@ -1,4 +1,4 @@
-package com.vovnenko.mypetproject.service;
+package com.vovnenko.mypetproject.service.impl;
 
 import com.vovnenko.mypetproject.model.User;
 import com.vovnenko.mypetproject.repository.UserRepository;
