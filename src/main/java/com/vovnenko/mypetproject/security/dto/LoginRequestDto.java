@@ -1,14 +1,17 @@
-package com.vovnenko.mypetproject.dto;
-
+package com.vovnenko.mypetproject.security.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
+
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterRequest {
+@Data
+public class LoginRequestDto {
+
     private String username;
     private String password;
+
+
 }

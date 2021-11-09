@@ -1,7 +1,7 @@
-package com.vovnenko.mypetproject.service.impl;
+package com.vovnenko.mypetproject.security.service.impl;
 
 import com.vovnenko.mypetproject.model.User;
-import com.vovnenko.mypetproject.repository.UserRepository;
+import com.vovnenko.mypetproject.security.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Struct;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Optional;

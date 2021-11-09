@@ -1,4 +1,4 @@
-package com.vovnenko.mypetproject.repository;
+package com.vovnenko.mypetproject.security.repository;
 
 import com.vovnenko.mypetproject.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

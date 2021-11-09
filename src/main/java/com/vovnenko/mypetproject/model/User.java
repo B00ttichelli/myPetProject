@@ -1,6 +1,7 @@
 package com.vovnenko.mypetproject.model;
 
 
+import com.vovnenko.mypetproject.Enum.ROLE;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
