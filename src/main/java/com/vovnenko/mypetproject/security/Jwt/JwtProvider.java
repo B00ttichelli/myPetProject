@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
+import javax.servlet.Filter;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
+import java.security.PublicKey;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -70,6 +72,13 @@ public class JwtProvider {
                 .signWith(signKey)
                 .compact();
     }
+
+    Key getSignKey (){
+        return signKey;
+    }
+
+
+
 
 
 }
