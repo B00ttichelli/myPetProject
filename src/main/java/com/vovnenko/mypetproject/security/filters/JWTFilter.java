@@ -1,5 +1,6 @@
 package com.vovnenko.mypetproject.security.filters;
 
+import com.vovnenko.mypetproject.exceptions.CustomException;
 import com.vovnenko.mypetproject.security.Jwt.JwtProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

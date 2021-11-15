@@ -29,6 +29,9 @@ public class User {
 
     private Instant created;
 
+    private String refreshTokenKey;
+
     private boolean enabled;
+    private ROLE role = ROLE.ROLE_USER;
 
 }

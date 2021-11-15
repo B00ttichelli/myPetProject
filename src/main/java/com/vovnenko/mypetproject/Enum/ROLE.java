@@ -1,7 +1,7 @@
 package com.vovnenko.mypetproject.Enum;
 
 public enum ROLE {
-    ADMIN,
-    USER,
-    MODERATOR
+    ROLE_ADMIN,
+    ROLE_USER,
+    ROLE_MODERATOR
 }

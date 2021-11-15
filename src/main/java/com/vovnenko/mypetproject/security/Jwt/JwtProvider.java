@@ -4,25 +4,24 @@ package com.vovnenko.mypetproject.security.Jwt;
 import com.vovnenko.mypetproject.Enum.ROLE;
 import com.vovnenko.mypetproject.model.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import org.hibernate.type.DateType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.Filter;
 import javax.xml.bind.DatatypeConverter;
 import java.security.Key;
-import java.security.PublicKey;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 
 @Component
 @AllArgsConstructor
+@Slf4j
 public class JwtProvider {
 
     //to Do add constructor and put it in app.prop
@@ -59,11 +58,11 @@ public class JwtProvider {
 
     public String createRefreshToken(User user){
         Claims claims =  Jwts.claims().setSubject(user.getUsername());
-        claims.put("authorities",Collections.singleton(ROLE.USER));
+        claims.put("authorities",Collections.singleton(ROLE.ROLE_USER));
         Date now = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(now);
-        calendar.add(Calendar.MINUTE,refreshTokenTimeInMin);
+        calendar.add(Calendar.MINUTE, refreshTokenTimeInMin);
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -73,13 +72,33 @@ public class JwtProvider {
                 .compact();
     }
 
-    Key getSignKey (){
-        return signKey;
+
+    public String getUsernameFromToken(String refreshToken) {
+
+
+        JwtParser build = Jwts.parserBuilder().setSigningKey(signKey).build();
+        String subject = build.parseClaimsJwt(refreshToken).getBody().getSubject();
+
+        return subject;
     }
 
 
+    public boolean isTokenValid(String refreshToken, String refreshTokenKey) {
+        boolean flag = false;
+        JwtParser build = Jwts.parserBuilder().setSigningKey(signKey).build();
+        try {
+            build.parseClaimsJws(refreshToken);
+            flag = true;
+        } catch (Exception e) {
+            log.info("Token is invalid  " + e.getMessage());
+        }
 
 
+        return flag;
+    }
 
+    public byte[] getSignKey() {
+        return signKey.getEncoded();
+    }
 }
 
