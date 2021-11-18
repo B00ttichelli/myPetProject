@@ -1,6 +1,7 @@
 package com.vovnenko.mypetproject.service.impl;
 
 import com.vovnenko.mypetproject.dto.SubForumDto;
+import com.vovnenko.mypetproject.exceptions.CustomException;
 import com.vovnenko.mypetproject.mapper.SubForumMapper;
 import com.vovnenko.mypetproject.model.SubForum;
 import com.vovnenko.mypetproject.repository.SubForumRepository;
@@ -18,6 +19,19 @@ import java.util.stream.Collectors;
 public class SubForumServiceImpl implements SubForumService {
     private final SubForumMapper subForumMapper;
     private final SubForumRepository subForumRepository;
+
+    @Override
+    public SubForumDto update(SubForumDto subForumDto) {
+        SubForum subForum = subForumRepository.findById(subForumDto.getId())
+                .orElseThrow(
+                        () -> new CustomException("Forum with " + subForumDto.getId() + "Not founded"));
+        subForum.setSubForumName(subForumDto.getSubForumName());
+        subForum.setDescription(subForum.getDescription());
+
+        subForumRepository.save(subForum);
+
+        return subForumMapper.subForumToSubForumDto(subForum);
+    }
 
     @Override
     @Transactional

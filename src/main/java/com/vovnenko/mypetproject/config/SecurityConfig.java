@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/admin/*").hasRole("ADMIN")
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/forums/**").hasRole("USER")
                 .antMatchers("/api/forums").hasRole("USER")
                 .antMatchers("/api/auth/*").permitAll()
@@ -62,31 +62,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore( new JWTFilter(jwtProvider,authenticationManager()), UsernamePasswordAuthenticationFilter.class);
 
 
-      /*  http
-              *//*  .csrf()
-                .and().cors()
-                .disable()*//*.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore( new JWTFilter(jwtProvider,authenticationManager()), UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling()
-                .authenticationEntryPoint((req,resp,exc)->resp.sendError(401,"Not Authorized"))
-                .accessDeniedHandler((req,resp,exc)->resp.sendError(403,"Permission Denied"))
-                .and()
-                .authorizeRequests()
-                .antMatchers("/api/auth/**")
-                .permitAll()
-                .antMatchers("/api/forums",
-                        "/api/forums/**")
-                .hasAnyRole("ADMIN","MODERATOR", ROLE.USER.toString());
-*/
-
-    /*    http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/api/auth/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated();
-        http.antMatcher("/api/forums/**").addFilterBefore( new JWTFilter(jwtProvider,authenticationManager()), UsernamePasswordAuthenticationFilter.class);*/
 
     }
 

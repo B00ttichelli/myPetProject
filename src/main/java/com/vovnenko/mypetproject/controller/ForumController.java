@@ -18,11 +18,7 @@ public class ForumController {
 
     private final SubForumService subForumService;
 
-    @PostMapping("/create")
-    public ResponseEntity<SubForumDto> createSubForum(@RequestBody SubForumDto subForumDto){
 
-        return new ResponseEntity<>(subForumService.save(subForumDto), HttpStatus.CREATED);
-    }
 
     @GetMapping
     public ResponseEntity<List<SubForumDto>> getAllForums(){

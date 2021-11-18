@@ -20,7 +20,7 @@ public class SubForum {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Forum name cant be blank")
+    @NotBlank(message = "Forum name can't be blank")
     private String subForumName;
 
    @NotBlank

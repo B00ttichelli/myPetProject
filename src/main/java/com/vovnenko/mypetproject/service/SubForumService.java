@@ -10,4 +10,5 @@ public interface SubForumService {
 
     List<SubForumDto> getAll();
 
+    SubForumDto update(SubForumDto subForumDto);
 }
