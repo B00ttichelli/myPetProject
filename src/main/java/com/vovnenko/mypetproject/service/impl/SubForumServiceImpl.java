@@ -7,7 +7,6 @@ import com.vovnenko.mypetproject.model.SubForum;
 import com.vovnenko.mypetproject.repository.SubForumRepository;
 import com.vovnenko.mypetproject.service.SubForumService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.annotation.ReadOnlyProperty;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -22,15 +21,14 @@ public class SubForumServiceImpl implements SubForumService {
 
     @Override
     public SubForumDto update(SubForumDto subForumDto) {
-        SubForum subForum = subForumRepository.findById(subForumDto.getId())
-                .orElseThrow(
-                        () -> new CustomException("Forum with " + subForumDto.getId() + "Not founded"));
-        subForum.setSubForumName(subForumDto.getSubForumName());
-        subForum.setDescription(subForum.getDescription());
 
-        subForumRepository.save(subForum);
+        if (!subForumRepository.existsById(subForumDto.getId())) {
+            throw new CustomException("Forum with id " + subForumDto.getId() + " dont exist");
+        }
 
-        return subForumMapper.subForumToSubForumDto(subForum);
+        subForumRepository.updateNameOrDescription(subForumDto.getId(), subForumDto.getSubForumName(), subForumDto.getDescription());
+
+        return subForumMapper.subForumToSubForumDto(subForumRepository.getById(subForumDto.getId()));
     }
 
     @Override

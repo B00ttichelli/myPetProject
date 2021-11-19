@@ -12,6 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
+@Table(name = "subforum")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -21,9 +22,11 @@ public class SubForum {
     private Long id;
 
     @NotBlank(message = "Forum name can't be blank")
+    @Column(name = "forum_name")
     private String subForumName;
 
    @NotBlank
+   @Column(name = "description")
     private String description;
 
    @OneToMany(fetch = FetchType.LAZY)
