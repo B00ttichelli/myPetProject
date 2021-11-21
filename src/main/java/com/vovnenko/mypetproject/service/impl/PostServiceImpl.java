@@ -10,9 +10,12 @@ import com.vovnenko.mypetproject.repository.SubForumRepository;
 import com.vovnenko.mypetproject.security.repository.UserRepository;
 import com.vovnenko.mypetproject.service.PostService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -35,5 +38,13 @@ public class PostServiceImpl implements PostService {
         Post posted = postRepository.getByPostName(postDto.getPostName());
 
         return postMapper.postToPostDto(posted);
+    }
+
+    @Transactional
+    @Override
+    public List<PostDto> findAllByForumIdPageable(Long id, Pageable pageable) {
+        SubForum subForum = subForumRepository.findById(id).orElseThrow();
+        return postRepository.findAllBySubForum(subForum, pageable).getContent().stream().map(postMapper::postToPostDto).collect(Collectors.toList());
+
     }
 }
