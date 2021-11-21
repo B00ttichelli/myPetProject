@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Post {
     private Long postId;
 
     @NotBlank(message = "Post name cant be empty")
+    @UniqueElements
     private String postName;
 
     @Nullable

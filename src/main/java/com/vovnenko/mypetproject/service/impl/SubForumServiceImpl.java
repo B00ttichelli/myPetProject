@@ -20,6 +20,7 @@ public class SubForumServiceImpl implements SubForumService {
     private final SubForumRepository subForumRepository;
 
     @Override
+    @Transactional
     public SubForumDto update(SubForumDto subForumDto) {
 
         if (!subForumRepository.existsById(subForumDto.getId())) {

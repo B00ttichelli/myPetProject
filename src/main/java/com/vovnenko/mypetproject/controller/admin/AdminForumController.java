@@ -25,8 +25,7 @@ public class AdminForumController {
     public ResponseEntity<SubForumDto> updateSubForum(@RequestBody SubForumDto subForumDto){
             SubForumDto response = subForumService.update(subForumDto);
 
-
-        return new ResponseEntity<>(null,HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(response,HttpStatus.ACCEPTED);
     }
 
 
