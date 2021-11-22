@@ -28,9 +28,9 @@ public class PostServiceImpl implements PostService {
 
     @Transactional
     @Override
-    public PostDto create(PostDto postDto) {
+    public PostDto create(PostDto postDto, String name) {
         Post post = postMapper.postDtoToPost(postDto);
-        User user = userRepository.findById(postDto.getUserId()).orElseThrow();
+        User user = userRepository.findByUsername(name).orElseThrow();
         post.setUser(user);
         SubForum subForum = subForumRepository.findById(postDto.getSubForumId()).orElseThrow();
         post.setSubForum(subForum);

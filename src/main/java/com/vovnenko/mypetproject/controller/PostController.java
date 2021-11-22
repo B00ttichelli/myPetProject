@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,9 +20,9 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping("/create")
-    ResponseEntity<PostDto> createPost (@RequestBody PostDto postDto){
-        //todo UserAuth
-        PostDto response  = postService.create(postDto);
+    ResponseEntity<PostDto> createPost (@RequestBody PostDto postDto, Authentication authentication){
+
+        PostDto response  = postService.create(postDto,authentication.getName());
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
     @GetMapping("/get")
