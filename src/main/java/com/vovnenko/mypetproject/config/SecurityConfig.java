@@ -24,6 +24,9 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.Collections;
 
+import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
+import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
+
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -48,19 +51,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
-                .httpBasic().disable()
+        http.cors().and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/api/forums/**").hasRole("USER")
-                .antMatchers("/api/forums").hasRole("ADMIN")
-                .antMatchers("/api/post/**").hasRole("USER")
+                .addFilterBefore( new JWTFilter(jwtProvider,authenticationManager()), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+                .authenticationEntryPoint((req, resp, exc) -> resp.sendError(SC_UNAUTHORIZED, "Authorize first."))
+                .accessDeniedHandler((req, resp, exc) -> resp.sendError(SC_FORBIDDEN, "You don't have authorities."))
+                .and().authorizeRequests()
+                //public endpoints
                 .antMatchers("/api/auth/*").permitAll()
-                .and()
-                .addFilterBefore( new JWTFilter(jwtProvider,authenticationManager()), UsernamePasswordAuthenticationFilter.class);
+                //private
+                .antMatchers("/api/admin/forums/**").hasRole("ADMIN")
+                .antMatchers("/api/forums/**").hasRole("ADMIN")
+                .antMatchers("/api/forums").hasRole("ADMIN")
+                .antMatchers("/api/post/**").hasRole("ADMIN");
+
 
 
 
