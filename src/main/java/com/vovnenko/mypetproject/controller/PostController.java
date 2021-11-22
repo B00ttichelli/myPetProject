@@ -1,10 +1,8 @@
 package com.vovnenko.mypetproject.controller;
 
 import com.vovnenko.mypetproject.dto.PostDto;
-import com.vovnenko.mypetproject.model.Post;
 import com.vovnenko.mypetproject.service.PostService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -22,6 +20,7 @@ public class PostController {
 
     @PostMapping("/create")
     ResponseEntity<PostDto> createPost (@RequestBody PostDto postDto){
+        //todo UserAuth
         PostDto response  = postService.create(postDto);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
