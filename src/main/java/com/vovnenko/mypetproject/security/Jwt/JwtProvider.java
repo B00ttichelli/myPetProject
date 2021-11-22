@@ -77,9 +77,8 @@ public class JwtProvider {
 
 
         JwtParser build = Jwts.parserBuilder().setSigningKey(signKey).build();
-        String subject = build.parseClaimsJwt(refreshToken).getBody().getSubject();
 
-        return subject;
+        return build.parseClaimsJws(refreshToken).getBody().getSubject();
     }
 
 

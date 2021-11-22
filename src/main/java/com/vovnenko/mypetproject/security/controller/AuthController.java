@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotBlank;
+
 @RestController
 @RequestMapping("/api/auth")
 @AllArgsConstructor
@@ -32,9 +34,9 @@ public class AuthController {
 
     @GetMapping("/refreshToken")
 
-    public ResponseEntity<RefreshTokenDto> refreshToken(String refreshToken){
+    public ResponseEntity<RefreshTokenDto> refreshToken(@RequestParam @NotBlank String refreshToken){
 
-        return new ResponseEntity(authService.refreshToken(refreshToken),HttpStatus.OK);
+        return new ResponseEntity<>(authService.refreshToken(refreshToken),HttpStatus.OK);
     }
 
 

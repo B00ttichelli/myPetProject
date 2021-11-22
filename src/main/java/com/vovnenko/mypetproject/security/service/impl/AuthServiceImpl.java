@@ -40,6 +40,7 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
+    @Transactional
     public RefreshTokenDto refreshToken(String refreshToken) {
         String username;
         try {
