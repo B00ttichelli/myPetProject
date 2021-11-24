@@ -1,6 +1,5 @@
 package com.vovnenko.mypetproject.security.filters;
 
-import com.vovnenko.mypetproject.exceptions.CustomException;
 import com.vovnenko.mypetproject.security.Jwt.JwtProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +23,6 @@ import java.util.Optional;
 @Slf4j
 @Component
 public class JWTFilter extends OncePerRequestFilter  {
-
     private final JwtProvider jwtProvider;
     private final AuthenticationManager authenticationManager;
 

@@ -54,8 +54,7 @@ public class AuthServiceImpl implements AuthService {
         //todo check user
         String refreshTokenUpdated = jwtProvider.createRefreshToken(user);
         userRepository.updateTokenKey(refreshTokenUpdated, user.getUserId());
-
-        if (jwtProvider.isTokenValid(refreshToken, user.getRefreshTokenKey())) {
+        if (jwtProvider.isTokenValid(refreshToken)) {
             user.setRefreshTokenKey(refreshTokenUpdated);
             return RefreshTokenDto.builder()
                     .accessToken(jwtProvider.createToken(username, user.getRole()))

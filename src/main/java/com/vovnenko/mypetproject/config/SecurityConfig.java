@@ -62,6 +62,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().authorizeRequests()
                 //public endpoints
                 .antMatchers("/api/auth/*").permitAll()
+                //swagger endpoint
+                .antMatchers("/v2/api-docs",
+                        "/swagger-resources",
+                        "/swagger-resources/**",
+                        "/configuration/ui",
+                        "/configuration/security",
+                        "/swagger-ui.html",
+                        "/webjars/**",
+                        // -- Swagger UI v3 (OpenAPI)
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**")
+                .permitAll()
                 //private
                 .antMatchers("/api/admin/forums/**").hasAnyRole("ADMIN","USER","MODERATOR")
                 .antMatchers("/api/forums/**").hasAnyRole("ADMIN","USER","MODERATOR")

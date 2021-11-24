@@ -82,7 +82,7 @@ public class JwtProvider {
     }
 
 
-    public boolean isTokenValid(String refreshToken, String refreshTokenKey) {
+    public boolean isTokenValid(String refreshToken) {
 
         //todo validate
         boolean flag = false;
