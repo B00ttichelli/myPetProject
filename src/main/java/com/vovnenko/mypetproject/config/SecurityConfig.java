@@ -63,10 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //public endpoints
                 .antMatchers("/api/auth/*").permitAll()
                 //private
-                .antMatchers("/api/admin/forums/**").hasRole("ADMIN")
-                .antMatchers("/api/forums/**").hasRole("ADMIN")
-                .antMatchers("/api/forums").hasRole("ADMIN")
-                .antMatchers("/api/post/**").hasRole("ADMIN");
+                .antMatchers("/api/admin/forums/**").hasAnyRole("ADMIN","USER","MODERATOR")
+                .antMatchers("/api/forums/**").hasAnyRole("ADMIN","USER","MODERATOR")
+                .antMatchers("/api/forums").hasAnyRole("ADMIN","USER","MODERATOR")
+                .antMatchers("/api/post/**").hasAnyRole("ADMIN","USER","MODERATOR")
+                .antMatchers("/api/comment/**").hasAnyRole("ADMIN","USER","MODERATOR");
+
 
 
 

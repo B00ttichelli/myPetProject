@@ -34,10 +34,17 @@ public class AuthController {
 
     @GetMapping("/refreshToken")
 
-    public ResponseEntity<RefreshTokenDto> refreshToken(@RequestParam @NotBlank String refreshToken){
+    public ResponseEntity<RefreshTokenDto> refreshToken(@RequestParam @NotBlank String refreshToken) {
 
-        return new ResponseEntity<>(authService.refreshToken(refreshToken),HttpStatus.OK);
+        return new ResponseEntity<>(authService.refreshToken(refreshToken), HttpStatus.OK);
     }
 
+    @GetMapping("/logout")
+    public ResponseEntity<Void> userLogOut() {
+
+        
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

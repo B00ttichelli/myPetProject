@@ -43,8 +43,7 @@ public class PostServiceImpl implements PostService {
     @Transactional
     @Override
     public List<PostDto> findAllByForumIdPageable(Long id, Pageable pageable) {
-        SubForum subForum = subForumRepository.findById(id).orElseThrow();
-        return postRepository.findAllBySubForum(subForum, pageable).getContent().stream().map(postMapper::postToPostDto).collect(Collectors.toList());
+        return postRepository.findAllBySubForum_Id(id, pageable).getContent().stream().map(postMapper::postToPostDto).collect(Collectors.toList());
 
     }
 }

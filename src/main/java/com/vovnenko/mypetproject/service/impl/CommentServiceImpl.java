@@ -31,9 +31,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDto> findAllByPostIdPageable(Long id, Pageable pageable) {
 
-        Post post = postRepository.findById(id).orElseThrow(); // customize it
-
-        return commentRepository.findAllByPost(post,pageable).getContent()
+        return commentRepository.findAllByPost_PostId(id,pageable).getContent()
                 .stream().map(commentMapper::commentToCommentDto).collect(Collectors.toList());
     }
 
