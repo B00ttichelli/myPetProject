@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RegisterRequestPayload} from "./register-request.payload";
-import {RegisterService} from "../service/register.service";
+import {AuthService} from "../service/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -11,7 +11,7 @@ import {RegisterService} from "../service/register.service";
 export class RegisterComponent implements OnInit {
   registrationControl: FormGroup | undefined;
   registerRequestPayLoad: RegisterRequestPayload;
-  constructor(private registerService: RegisterService) {
+  constructor(private registerService: AuthService) {
 
     this.registerRequestPayLoad = {
       username:'',
