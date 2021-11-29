@@ -21,10 +21,10 @@ public class AuthController {
 
 
     @PostMapping("/signup")
-    public ResponseEntity<Void> signup(@RequestBody RegisterRequest registerRequest) {
+    public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
         authService.signup(registerRequest);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>("Success",HttpStatus.OK);
     }
 
     @PostMapping("/signIn")

@@ -1,6 +1,9 @@
 My First Pet project
 
-Technical stack: SpringBoot,Spring Security,Hibernate
+Technical stack: 
+BackEnd: SpringBoot, Spring Security, Hibernate
+Frontend: Angular, BootStrap
+
 
 Description:
 Is a Kind of oldSchool forum, where users can post and comment
