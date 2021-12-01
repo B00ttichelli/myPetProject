@@ -13,4 +13,9 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleCustomException(CustomException exception){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(WrongUserException.class)
+    protected  ResponseEntity<Object> handleWrongUser(WrongUserException exception){
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+    }
 }

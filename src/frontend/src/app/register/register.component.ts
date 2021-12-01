@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {RegisterRequestPayload} from "./register-request.payload";
 import {AuthService} from "../service/auth.service";
+import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-register',
@@ -9,9 +11,9 @@ import {AuthService} from "../service/auth.service";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registrationControl: FormGroup | undefined;
+  registrationControl: FormGroup ;
   registerRequestPayLoad: RegisterRequestPayload;
-  constructor(private registerService: AuthService) {
+  constructor(private registerService: AuthService,private router: Router, private toAstra: ToastrService) {
 
     this.registerRequestPayLoad = {
       username:'',
@@ -23,8 +25,8 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
   this.registrationControl = new FormGroup({
-    username: new FormControl('username',Validators.required),
-    password: new FormControl('passwrod',Validators.required)
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   })
 
   }
@@ -34,7 +36,8 @@ export class RegisterComponent implements OnInit {
     this.registerRequestPayLoad.password = this.registrationControl.get('password').value;
 
     this.registerService.signup(this.registerRequestPayLoad)
-      .subscribe(data =>{console.log(data)});
+      .subscribe(()=>{this.router.navigate(['/login'], {queryParams:{ registred:'true'}});},
+        ()=>{this.toAstra.error('Registration Failed ')});
   }
 
 }
