@@ -8,10 +8,12 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { MainComponent } from './main/main.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {NgxWebstorageModule} from "ngx-webstorage";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ToastrModule} from "ngx-toastr";
+import { HomeComponent } from './home/home.component';
+import {TokenInterceptor} from "./token-interceptor";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import {ToastrModule} from "ngx-toastr";
     HeaderComponent,
     LoginComponent,
     RegisterComponent,
-    MainComponent
+    MainComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,11 @@ import {ToastrModule} from "ngx-toastr";
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,
+    useClass:TokenInterceptor,
+    multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
