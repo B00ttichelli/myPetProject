@@ -13,15 +13,14 @@ export class TokenInterceptor implements HttpInterceptor{
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-      let jwt =  this.authService.getJwtToken()
+    let jwt =  this.authService.getJwtToken()
     if(jwt!=null){
       return next.handle(this.addToken(req,jwt))
     }
 
-
-
     return next.handle(req);
   }
+
     addToken(req: HttpRequest<any>, jwt: any){
      return req.clone({
        setHeaders:{

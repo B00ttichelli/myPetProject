@@ -1,6 +1,8 @@
 package com.vovnenko.mypetproject.security.filters;
 
+import com.vovnenko.mypetproject.exceptions.CustomException;
 import com.vovnenko.mypetproject.security.Jwt.JwtProvider;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -40,6 +42,10 @@ public class JWTFilter extends OncePerRequestFilter  {
                         .authenticate(new UsernamePasswordAuthenticationToken(jwtFromRequest,null));
             } catch (AuthenticationException e) {
                 log.info("Something went wrong : token "+ jwtFromRequest + " Exception Mesage: " + e.getMessage());
+            } catch (ExpiredJwtException e){
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+
             }
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
