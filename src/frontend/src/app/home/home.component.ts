@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ForumModel} from "../../shared/forumModel";
 import {ForumService} from "../service/forum.service";
+import {faComments} from '@fortawesome/free-solid-svg-icons'
+
 
 @Component({
   selector: 'app-home',
@@ -9,6 +11,8 @@ import {ForumService} from "../service/forum.service";
 })
 export class HomeComponent implements OnInit {
 
+
+  faComments = faComments;
   forums$: Array<ForumModel> = []
 
   constructor(private forumService:ForumService) {

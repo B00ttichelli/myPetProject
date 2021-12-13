@@ -1,12 +1,15 @@
-import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
+import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
+import {catchError, Observable, throwError} from "rxjs";
 import {AuthService} from "./service/auth.service";
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class TokenInterceptor implements HttpInterceptor{
+
 
 
   constructor(public authService:AuthService) {
@@ -15,13 +18,22 @@ export class TokenInterceptor implements HttpInterceptor{
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let jwt =  this.authService.getJwtToken()
     if(jwt!=null){
-      return next.handle(this.addToken(req,jwt))
+      req = this.addToken(req,jwt);
     }
 
-    return next.handle(req);
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+
+        if (error.status === 401) {
+          return this.handleAuthError(req, next);
+        }
+        return throwError(error);
+      })
+    );
   }
 
-    addToken(req: HttpRequest<any>, jwt: any){
+    addToken(req: HttpRequest<any>, jwt: string){
+    console.log(jwt);
      return req.clone({
        setHeaders:{
          Authorization: 'Bearer '+jwt
@@ -30,10 +42,11 @@ export class TokenInterceptor implements HttpInterceptor{
 
     }
 
+    handleAuthError(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
+      this.authService.getRefreshToken();
+      return next.handle(this.addToken(req,this.authService.getJwtToken()));
+    }
 
 }
 
 
-/*({
-       headers: req.headers.set('Authorization','Bearer '+jwt)
-     });*/

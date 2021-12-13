@@ -5,11 +5,14 @@ import {map, Observable} from "rxjs";
 import {LoginRequestPayload} from "../login/loginRequest.payload";
 import {LoginResponsePayload} from "../login/loginResponse.payload";
 import {LocalStorageService} from "ngx-webstorage";
+import {FreshTokenPair} from "../../shared/freshTokenPair";
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
 
   constructor(private httpClient: HttpClient,private localStorage:LocalStorageService) {
 
@@ -34,7 +37,23 @@ export class AuthService {
   }
 
 
-  getJwtToken(){
+  getJwtToken(): string{
     return this.localStorage.retrieve('authenticationToken');
+  }
+  getRefreshToken(): string{
+    return this.localStorage.retrieve('refreshToken');
+  }
+
+  getNewTokenPair(refreshToken: string){
+
+    var stringObservable = this.httpClient.get<FreshTokenPair>("http://localhost:8080/api/auth/refreshToken?refreshToken="+refreshToken)
+      .pipe(map(data=>{
+        localStorage.removeItem('authenticationToken')
+        localStorage.removeItem('refreshToken')
+        this.localStorage.store('authenticationToken',data.accessToken);
+        this.localStorage.store('refreshToken',data.refreshToken);
+        /*return data.accessToken;*/
+      }));
+
   }
 }
