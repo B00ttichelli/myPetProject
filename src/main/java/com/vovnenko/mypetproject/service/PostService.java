@@ -11,4 +11,5 @@ public interface PostService {
 
     List<PostDto> findAllByForumIdPageable(Long id, Pageable pageable);
 
+    PostDto getById(Long id);
 }

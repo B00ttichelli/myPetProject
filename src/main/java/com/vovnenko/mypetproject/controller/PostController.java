@@ -33,4 +33,10 @@ public class PostController {
         List<PostDto> response = postService.findAllByForumIdPageable(id, pageable);
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
+
+    @GetMapping("/getPost")
+    ResponseEntity<PostDto> getPostById(@RequestParam Long id){
+       PostDto postDto = postService.getById(id);
+       return new ResponseEntity<>(postDto,HttpStatus.OK);
+    }
 }

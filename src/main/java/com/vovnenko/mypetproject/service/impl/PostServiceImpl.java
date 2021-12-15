@@ -46,4 +46,9 @@ public class PostServiceImpl implements PostService {
         return postRepository.findAllBySubForum_Id(id, pageable).getContent().stream().map(postMapper::postToPostDto).collect(Collectors.toList());
 
     }
+
+    @Override
+    public PostDto getById(Long id) {
+        return postMapper.postToPostDto(postRepository.getById(id));
+    }
 }
