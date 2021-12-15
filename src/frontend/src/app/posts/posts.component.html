@@ -1,1 +1,42 @@
-<p>posts works!</p>
+<div>
+  <div class="container">
+    <div class="row">
+      <!--<hr />-->
+      <div class="col-md-9">
+        <!-- Display Posts-->
+        <div class="row post" *ngFor="let post of posts$">
+
+          <!-- Section to Display Post Information-->
+          <div class="col-md-11">
+            <span >
+
+
+            </span>
+            <!--     <hr />-->
+            <div class="post-title">
+              <!--  <span class="subreddit-text"><a class="posturl" routerLink="">{{forum.subForumName}}</a></span>-->
+
+              <a class="postname" href="post/{{post.postId}}">{{post.postName}}</a>
+            </div>
+            <div>
+              <p class="post-text">{{post.postBody}}</p>
+              <span>
+              <a class="btnCommments" role="button">
+                <!--<fa-icon [icon]="faComments"></fa-icon>-->
+                Posts({{post.userId}})
+              </a>
+                <!--  <button class="login" (click)="goToPost(post.id)">
+                    Read Post
+                  </button>-->
+            </span>
+            </div>
+            <hr/>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
+  </div>
+</div>
