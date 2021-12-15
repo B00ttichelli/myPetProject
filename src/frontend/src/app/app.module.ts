@@ -16,6 +16,8 @@ import { HomeComponent } from './home/home.component';
 import {TokenInterceptor} from "./token-interceptor";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { PostsComponent } from './posts/posts.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,9 @@ import { PostsComponent } from './posts/posts.component';
     RegisterComponent,
     MainComponent,
     HomeComponent,
-    PostsComponent
+    PostsComponent,
+    CreatePostComponent,
+
   ],
   imports: [
     BrowserModule,

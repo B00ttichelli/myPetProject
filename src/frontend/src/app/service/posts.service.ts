@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {PostModel} from "../../shared/postModel";
+import {CreatePostPayload} from "../../shared/CreatePostPayload";
 
 
 @Injectable({
@@ -13,5 +14,9 @@ export class PostsService {
 
   getAllPosts(id):Observable<Array<PostModel>> {
     return this.httpClient.get<Array<PostModel>>("http://localhost:8080/api/post/get?id="+id);
+  }
+
+  publishPost(postPayload:CreatePostPayload){
+    return this.httpClient.post('http://localhost:8080/api/post/create',postPayload)
   }
 }

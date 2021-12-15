@@ -43,7 +43,7 @@ export class TokenInterceptor implements HttpInterceptor{
     }
 
     handleAuthError(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-      this.authService.getRefreshToken();
+      this.authService.getNewTokenPair(this.authService.getRefreshToken());
       return next.handle(this.addToken(req,this.authService.getJwtToken()));
     }
 
