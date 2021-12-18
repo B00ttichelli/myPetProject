@@ -6,6 +6,7 @@ import com.vovnenko.mypetproject.security.dto.RegisterRequest;
 import com.vovnenko.mypetproject.security.dto.SuccessLoginDto;
 import com.vovnenko.mypetproject.security.service.AuthService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotBlank;
 @RestController
 @RequestMapping("/api/auth")
 @AllArgsConstructor
+@Slf4j   // to delete
 public class AuthController {
 
     private final AuthService authService;
@@ -36,9 +38,11 @@ public class AuthController {
     @GetMapping("/refreshToken")
 
     public ResponseEntity<RefreshTokenDto> refreshToken(@RequestParam @NotBlank String refreshToken) {
-
+        log.info(" FUCKING TOKEN IS REFRESHED");
         return new ResponseEntity<>(authService.refreshToken(refreshToken), HttpStatus.OK);
     }
+
+
 
     @GetMapping("/logout")
     public ResponseEntity<Void> userLogOut() {

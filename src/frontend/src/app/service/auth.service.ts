@@ -4,17 +4,25 @@ import {RegisterRequestPayload} from "../register/register-request.payload";
 import {map, Observable} from "rxjs";
 import {LoginRequestPayload} from "../login/loginRequest.payload";
 import {LoginResponsePayload} from "../login/loginResponse.payload";
-import {LocalStorageService} from "ngx-webstorage";
-import {FreshTokenPair} from "../../shared/freshTokenPair";
+import {LocalStorageService} from "./localStorage.service";
 
+
+
+
+interface TokenPair {
+  accessToken: string;
+  refreshToken: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class AuthService {
 
 
-  constructor(private httpClient: HttpClient,private localStorage:LocalStorageService) {
+  constructor(public httpClient: HttpClient, public localStorageService: LocalStorageService) {
 
 
   }
@@ -27,10 +35,10 @@ export class AuthService {
   login(loginRequestPayload: LoginRequestPayload):Observable<boolean>{
      return this.httpClient.post<LoginResponsePayload>('http://localhost:8080/api/auth/signIn',loginRequestPayload)
       .pipe(map(data=>{
-        this.localStorage.store('authenticationToken',data.accessToken);
-        this.localStorage.store('username',data.name);
-        this.localStorage.store('refreshToken',data.refreshToken);
-        this.localStorage.store('expiresAt',data.expiresAt);
+        this.localStorageService.setAccessToken(data.accessToken)
+        this.localStorageService.setUsername(data.name)
+        this.localStorageService.setRefreshToken(data.refreshToken);
+        this.localStorageService.setExpDate(data.expiresAt);
         return true;
       }))
 
@@ -38,22 +46,33 @@ export class AuthService {
 
 
   getJwtToken(): string{
-    return this.localStorage.retrieve('authenticationToken');
+    return this.localStorageService.getAccessToken()
   }
   getRefreshToken(): string{
-    return this.localStorage.retrieve('refreshToken');
+    return this.localStorageService.getRefreshToken()
   }
+
 
   getNewTokenPair(refreshToken: string){
 
-    var stringObservable = this.httpClient.get<FreshTokenPair>("http://localhost:8080/api/auth/refreshToken?refreshToken="+refreshToken)
+/*    /!*let stringObservable = *!/this.httpClient.get<FreshTokenPair>("http://localhost:8080/api/auth/refreshToken?refreshToken="+refreshToken)
       .pipe(map(data=>{
-        localStorage.removeItem('authenticationToken')
-        localStorage.removeItem('refreshToken')
+
         this.localStorage.store('authenticationToken',data.accessToken);
         this.localStorage.store('refreshToken',data.refreshToken);
-        /*return data.accessToken;*/
-      }));
+
+        console.log(localStorage.getItem('authenticationToken'))
+
+        return data.accessToken;
+      }));*/
+   /* console.log("Fuck")
+    console.log(this.freshJwt)
+    return this.freshJwt*/
+
+    return this.httpClient.get<TokenPair>("http://localhost:8080/api/auth/refreshToken?refreshToken="+refreshToken).subscribe(data=>{
+      this.localStorageService.setAccessToken(data.accessToken);
+      this.localStorageService.setRefreshToken(data.refreshToken);
+    })
 
   }
 }

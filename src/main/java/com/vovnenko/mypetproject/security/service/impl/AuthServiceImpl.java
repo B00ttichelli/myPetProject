@@ -43,44 +43,49 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public RefreshTokenDto refreshToken(String refreshToken) {
         String username;
-        try {
+        // ToDo check blank string
+        User user = userRepository.findByRefreshTokenKey(refreshToken).orElseThrow();
+        username = user.getUsername();
+ /*       try {
             username = jwtProvider.getUsernameFromToken(refreshToken);
         } catch (Exception e) {
             throw new CustomException("Refresh token is invalid " + e.getMessage());
         }
 
-        User user = userRepository.findByUsername(username).orElseThrow();
+        User user = userRepository.findByUsername(username).orElseThrow();*/
 
         //todo check user
         String refreshTokenUpdated = jwtProvider.createRefreshToken(user);
         userRepository.updateTokenKey(refreshTokenUpdated, user.getUserId());
-        if (jwtProvider.isTokenValid(refreshToken)) {
-            user.setRefreshTokenKey(refreshTokenUpdated);
+       /* if (jwtProvider.isTokenValid(refreshToken)) {
+            user.setRefreshTokenKey(refreshTokenUpdated);*/
             return RefreshTokenDto.builder()
                     .accessToken(jwtProvider.createToken(username, user.getRole()))
-                    .refreshToken(jwtProvider.createRefreshToken(user))
+                    .refreshToken(refreshTokenUpdated)
                     .build();
 
-        } else {
+        /*} else {
             throw new CustomException("Refresh Token is nonValid");
 
-        }
+        }*/
 
 
     }
 
     @Override
+    @Transactional
     public SuccessLoginDto login(LoginRequestDto dto) {
         User user = userRepository.findByUsername(dto.getUsername())
                 .orElseThrow(() -> new WrongUserException("User not founded"));
         if (!passwordChecker(dto, user)) {
             throw new WrongUserException("Passwords dont match,try again");
         }
-
+        String refreshToken = jwtProvider.createRefreshToken(user);
+        userRepository.updateTokenKey(refreshToken,user.getUserId());
         return SuccessLoginDto.builder()
                 .userID(user.getUserId())
                 .accessToken(jwtProvider.createToken(user.getUsername(), ROLE.ROLE_USER))
-                .refreshToken(jwtProvider.createRefreshToken(user))
+                .refreshToken(refreshToken)
                 .expiresAt(Instant.now().plusSeconds(7200))
                 .name(user.getUsername())
                 .build();

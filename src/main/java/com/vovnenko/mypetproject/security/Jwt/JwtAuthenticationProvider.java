@@ -20,7 +20,7 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         JwtParser build = Jwts.parserBuilder()
                 .setSigningKey(jwtProvider.getSignKey()).build();
-        String subject = build.parseClaimsJws(authentication.getName())
+        String subject = build.parseClaimsJws(authentication.getName())   /// Authentication  TODO DEBUG
                 .getBody().getSubject();
         List<String> au = (List<String>) build.parseClaimsJws(authentication.getName()).getBody().get("authorities");
         return new UsernamePasswordAuthenticationToken(subject,"",au.stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList()));

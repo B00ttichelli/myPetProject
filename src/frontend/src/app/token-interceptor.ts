@@ -5,6 +5,8 @@ import {AuthService} from "./service/auth.service";
 
 
 
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,7 +35,6 @@ export class TokenInterceptor implements HttpInterceptor{
   }
 
     addToken(req: HttpRequest<any>, jwt: string){
-    console.log(jwt);
      return req.clone({
        setHeaders:{
          Authorization: 'Bearer '+jwt
@@ -42,11 +43,23 @@ export class TokenInterceptor implements HttpInterceptor{
 
     }
 
-    handleAuthError(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
-      this.authService.getNewTokenPair(this.authService.getRefreshToken());
-      return next.handle(this.addToken(req,this.authService.getJwtToken()));
+    handleAuthError(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+       let RefreshToken  = this.authService.getRefreshToken();
+       this.cleanStorage();
+        this.authService.getNewTokenPair(RefreshToken);
+
+
+        let jwt = this.authService.getJwtToken();
+
+       return next.handle(this.addToken(req,jwt));
     }
 
+  cleanStorage(){
+    window.localStorage.removeItem('refreshToken')
+    window.localStorage.removeItem('authenticationToken')
+    window.localStorage.clear()
+    console.log("storage are clear")
+  }
 }
 
 

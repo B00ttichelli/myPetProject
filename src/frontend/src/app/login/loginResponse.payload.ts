@@ -1,7 +1,7 @@
 export interface LoginResponsePayload{
 
   accessToken: string;
-  expiresAt: Date;
+  expiresAt: string;
   name:string;
   refreshToken: string;
   userID: Number;

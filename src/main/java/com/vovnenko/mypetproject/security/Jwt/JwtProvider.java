@@ -3,6 +3,7 @@ package com.vovnenko.mypetproject.security.Jwt;
 
 import com.vovnenko.mypetproject.Enum.ROLE;
 import com.vovnenko.mypetproject.model.User;
+import com.vovnenko.mypetproject.security.repository.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
@@ -25,11 +26,13 @@ import java.util.Date;
 public class JwtProvider {
 
     //to Do add constructor and put it in app.prop
-    private final Integer AccessTokenTimeInMin = 120;
+    private final Integer AccessTokenTimeInMin = 1;
     private final Integer refreshTokenTimeInMin = 600;
     private final String TokenKey = "secretKey;))()*)IOJSD(*YSHKNSO(A*SYHNMSDOAKFN)(IJJKNDSDISAHJBNF<NBFNNMLJIUGSBNKOJIUYGHBJNKIUGYFVHBJKNHIY*FYUTT*YIUIUT^RFYHV";
 
     private final Key signKey;
+
+
 
     @Autowired
     public JwtProvider(){
