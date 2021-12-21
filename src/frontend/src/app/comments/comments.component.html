@@ -1,1 +1,150 @@
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css"/>
+<div class="container">
+  <div class="well">
+    <div class="media">
+      <a class="pull-left" href="#">
+       <!-- <img class="media-object" src="http://placekitten.com/150/150">-->
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">{{post.postName}}</h4>
+        <p class="text-right"> Posted by {{post.userId}}</p>
+        <p>{{post.postBody}}</p>
+        <ul class="list-inline list-unstyled">
+          <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+          <li>|</li>
+          <span><i class="glyphicon glyphicon-comment"></i> quantiyu comments</span>
+          <li>|</li>
+
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="well"  *ngFor="let comment of comments" >
+    <div class="media">
+      <a class="pull-left" href="#">
+      <!--  <img class="media-object" src="http://placekitten.com/150/150">-->
+      </a>
+      <div class="media-body">
+        <h4 class="media-heading">Comment id {{comment.commentId}}</h4>
+        <p class="text-right">Posted by {{comment.userId}}</p>
+        <p>{{comment.text}}</p>
+        <ul class="list-inline list-unstyled">
+          <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+        <!--  <li>|</li>
+          <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
+          <li>|</li>
+          <li>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star"></span>
+            <span class="glyphicon glyphicon-star-empty"></span>
+          </li>
+          <li>|</li>
+          <li>
+            &lt;!&ndash; Use Font Awesome http://fortawesome.github.io/Font-Awesome/ &ndash;&gt;
+            <span><i class="fa fa-facebook-square"></i></span>
+            <span><i class="fa fa-twitter-square"></i></span>
+            <span><i class="fa fa-google-plus-square"></i></span>
+          </li>-->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <hr />
+    <div class="create-post-container col-md-9">
+      <form class="post-form" [formGroup]="createCommentForm" (ngSubmit)="createComment()">
+        <div class="form-group">
+          <div class="create-post-heading">Past a Comment</div>
+          <hr />
+       <!--   <input type="text" [formControlName]="'postName'" class="form-control" style="margin-top: 5px"
+                 placeholder="Title">
+          <input type="text" [formControlName]="'description'" class="form-control" style="margin-top: 5px"
+                 placeholder="Description">-->
+
+          <!--     <select class="form-control" style="margin-top: 10px" [formControlName]="'subredditName'">
+                 <option value="" selected disabled>Select Subreddit</option>
+                 <option *ngFor="let subreddit of subreddits">{{subreddit.name}}</option>
+               </select>-->
+
+          <div class="form-group">
+            <label for="Textarea1">Comment</label>
+            <textarea class="form-control" id="Textarea1" rows="6" [formControlName]="'postBody'"></textarea>
+          </div>
+          <span>
+            <div style="margin-top: 5px" class="float-right">
+              <button (click)="discardComment()" class="btnDiscard">Discard</button>
+              <button (click)="createComment()"
+                      class="btnCreatePost">Post</button>
+            </div>
+          </span>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-3">
+      <!--    <guidelines></guidelines>
+          <about></about>-->
+    </div>
+  </div>
+</div>
+
+
+
+
+<!--
 <p>comments works!</p>
+<div>
+  {{post.postName}}
+    {{post.postBody}}
+</div>
+<div>
+
+  <div class="container">
+    <div class="row">
+      &lt;!&ndash;<hr />&ndash;&gt;
+      <div class="col-md-9">
+        &lt;!&ndash; Display Posts&ndash;&gt;
+        <div class="row post" *ngFor="let comment of comments">
+
+          &lt;!&ndash; Section to Display Post Information&ndash;&gt;
+          <div class="col-md-11">
+            <span >
+
+
+            </span>
+            &lt;!&ndash;     <hr />&ndash;&gt;
+            <div class="post-title">
+              &lt;!&ndash;  <span class="subreddit-text"><a class="posturl" routerLink="">{{forum.subForumName}}</a></span>&ndash;&gt;
+
+              <a class="postname" href="post/{{comment.commentId}}">{{comment.commentId}}</a>
+            </div>
+            <div>
+              <p class="post-text">{{comment.text}}</p>
+              <span>
+              <a class="btnCommments" role="button">
+                &lt;!&ndash;<fa-icon [icon]="faComments"></fa-icon>&ndash;&gt;
+                Posts({{post.userId}})
+              </a>
+                &lt;!&ndash;  <button class="login" (click)="goToPost(post.id)">
+                    Read Post
+                  </button>&ndash;&gt;
+            </span>
+            </div>
+            <hr/>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+      </div>
+    </div>
+  </div>
+</div>
+-->
