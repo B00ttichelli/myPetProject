@@ -17,6 +17,7 @@ import {TokenInterceptor} from "./token-interceptor";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { PostsComponent } from './posts/posts.component';
 import { CreatePostComponent } from './create-post/create-post.component';
+import { CommentsComponent } from './comments/comments.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CreatePostComponent } from './create-post/create-post.component';
     HomeComponent,
     PostsComponent,
     CreatePostComponent,
+    CommentsComponent,
 
   ],
   imports: [

@@ -17,6 +17,9 @@ export class PostsService {
   }
 
   publishPost(postPayload:CreatePostPayload){
-    return this.httpClient.post('http://localhost:8080/api/post/create',postPayload)
+    return this.httpClient.post('http://localhost:8080/api/post/create',postPayload);
+  }
+  getPostById(id):Observable<PostModel>{
+    return this.httpClient.get<PostModel>("http://localhost:8080/api/post/getPost?id="+id);
   }
 }
