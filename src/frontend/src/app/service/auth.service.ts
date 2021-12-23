@@ -12,6 +12,7 @@ import {LocalStorageService} from "./localStorage.service";
 interface TokenPair {
   accessToken: string;
   refreshToken: string;
+  username: string;
 }
 
 @Injectable({
@@ -36,9 +37,9 @@ export class AuthService {
      return this.httpClient.post<LoginResponsePayload>('http://localhost:8080/api/auth/signIn',loginRequestPayload)
       .pipe(map(data=>{
         this.localStorageService.setAccessToken(data.accessToken)
-        this.localStorageService.setUsername(data.name)
+        this.localStorageService.setUsername(data.expiresAt)
         this.localStorageService.setRefreshToken(data.refreshToken);
-        this.localStorageService.setExpDate(data.expiresAt);
+        this.localStorageService.setExpDate(data.name);
         return true;
       }))
 
@@ -46,12 +47,14 @@ export class AuthService {
 
 
   getJwtToken(): string{
-    return this.localStorageService.getAccessToken()
+    return this.localStorageService.getAccessToken();
   }
   getRefreshToken(): string{
-    return this.localStorageService.getRefreshToken()
+    return this.localStorageService.getRefreshToken();
   }
-
+  getUsername(): string{
+    return this.localStorageService.getUsername();
+  }
 
   getNewTokenPair(refreshToken: string){
 
@@ -74,5 +77,8 @@ export class AuthService {
       this.localStorageService.setRefreshToken(data.refreshToken);
     })
 
+  }
+  isLoggedIn(): boolean {
+    return this.getJwtToken() != null;
   }
 }

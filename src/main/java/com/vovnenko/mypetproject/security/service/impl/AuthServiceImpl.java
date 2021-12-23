@@ -62,6 +62,7 @@ public class AuthServiceImpl implements AuthService {
             return RefreshTokenDto.builder()
                     .accessToken(jwtProvider.createToken(username, user.getRole()))
                     .refreshToken(refreshTokenUpdated)
+                    .userName(username)
                     .build();
 
         /*} else {

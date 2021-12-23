@@ -57,7 +57,7 @@ export class TokenInterceptor implements HttpInterceptor{
   cleanStorage(){
     window.localStorage.removeItem('refreshToken')
     window.localStorage.removeItem('authenticationToken')
-    window.localStorage.clear()
+    /*window.localStorage.clear()*/
     console.log("storage are clear")
   }
 }

@@ -5,18 +5,42 @@
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+<div *ngIf="isLoggedIn"  class="float-right" >
+
+<!--  <div class="collapse navbar-collapse"> &lt;!&ndash;id="navbarExampleDefault"&ndash;&gt;
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="register">Register</a>
+        <a class="nav-link" (click)="goToProfile()" )>{{username}}</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" routerLink="login">LogIn</a>
+        <a class="nav-link" (click)="logout()"> Logout</a>
       </li>
-
     </ul>
+  </div>-->
 
+  <div class="collapse navbar-collapse"> <!--id="navbarExampleDefault"-->
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <button  class="btn btn-secondary m-1" >{{username}}</button>
+      </li>
+      <li class="nav-item">
+        <a type="button" class="btn btn-secondary m-1" (click)="logout()" > Logout </a>
+      </li>
+    </ul>
   </div>
+</div>
+
+  <div *ngIf="!isLoggedIn">
+    <div class="collapse navbar-collapse"> <!--id="navbarExampleDefault"-->
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="register">Register</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="login">LogIn</a>
+        </li>
+      </ul>
+    </div>
+</div>
+
 </nav>
-
-

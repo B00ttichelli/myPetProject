@@ -42,7 +42,7 @@ import { CommentsComponent } from './comments/comments.component';
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS,
