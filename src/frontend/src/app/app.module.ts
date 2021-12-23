@@ -18,6 +18,7 @@ import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import { PostsComponent } from './posts/posts.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { CommentsComponent } from './comments/comments.component';
+import { LogoutComponent } from './logout/logout.component';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { CommentsComponent } from './comments/comments.component';
     PostsComponent,
     CreatePostComponent,
     CommentsComponent,
+    LogoutComponent,
 
   ],
   imports: [

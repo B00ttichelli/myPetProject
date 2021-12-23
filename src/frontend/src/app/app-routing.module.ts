@@ -6,6 +6,7 @@ import {HomeComponent} from "./home/home.component";
 import {PostsComponent} from "./posts/posts.component";
 import {CreatePostComponent} from "./create-post/create-post.component";
 import {CommentsComponent} from "./comments/comments.component";
+import {LogoutComponent} from "./logout/logout.component";
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'forum/:id',component: PostsComponent},
   {path: 'create-post/:id',component: CreatePostComponent},
-  {path: 'post/:id',component: CommentsComponent}
+  {path: 'post/:id',component: CommentsComponent},
+  {path: 'logout',component: LogoutComponent}
 ];
 
 @NgModule({
