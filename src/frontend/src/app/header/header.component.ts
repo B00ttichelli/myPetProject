@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../service/auth.service";
 import {Router} from "@angular/router";
+import {LocalStorageService} from "../service/localStorage.service";
+
 
 @Component({
   selector: 'app-header',
@@ -22,6 +24,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl("/user-profile/"+this.username);
   }
 
-  logout(){}
+  logout(){
+    window.localStorage.clear();
+    this.router.navigateByUrl("/");
+    window.location.reload();
+  }
 
 }

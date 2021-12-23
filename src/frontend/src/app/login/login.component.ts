@@ -4,6 +4,7 @@ import {LoginRequestPayload} from "./loginRequest.payload";
 import {AuthService} from "../service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
+import {delay, timeout} from "rxjs";
 
 @Component({
   selector: 'app-login',
@@ -48,11 +49,19 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginRequestPayload).subscribe(data=>{
       if(data){
         this.isError = true;
-        this.router.navigateByUrl('/');
-        this.toAstra.success("Login Successful")
+
+
+        this.toAstra.success("Welcome")
+
+        this.router.navigateByUrl('/').then(()=>window.location.reload());
+
+
+
       }else {
+
         this.isError =false;
       }
+
     })
 
 
