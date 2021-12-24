@@ -24,7 +24,7 @@ export  class LocalStorageService{
     return localStorage.getItem(this.JWT)
   }
   public getUsername():string{
-    return localStorage.getItem(this.EXP)
+    return localStorage.getItem(this.USERNAME)
   }
 
   public getRefreshToken(): string {

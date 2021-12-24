@@ -4,7 +4,7 @@ import {LoginRequestPayload} from "./loginRequest.payload";
 import {AuthService} from "../service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
-import {delay, timeout} from "rxjs";
+
 
 @Component({
   selector: 'app-login',

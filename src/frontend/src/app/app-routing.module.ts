@@ -7,6 +7,7 @@ import {PostsComponent} from "./posts/posts.component";
 import {CreatePostComponent} from "./create-post/create-post.component";
 import {CommentsComponent} from "./comments/comments.component";
 import {LogoutComponent} from "./logout/logout.component";
+import {UserProfileComponent} from "./user-profile/user-profile.component";
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'forum/:id',component: PostsComponent},
   {path: 'create-post/:id',component: CreatePostComponent},
   {path: 'post/:id',component: CommentsComponent},
-  {path: 'logout',component: LogoutComponent}
+  {path: 'logout',component: LogoutComponent},
+  {path: 'user-profile/:username', component: UserProfileComponent}
 ];
 
 @NgModule({

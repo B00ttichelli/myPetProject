@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../service/auth.service";
 import {Router} from "@angular/router";
-import {LocalStorageService} from "../service/localStorage.service";
+
 
 
 @Component({
@@ -21,13 +21,16 @@ export class HeaderComponent implements OnInit {
   }
 
   goToProfile(){
-    this.router.navigateByUrl("/user-profile/"+this.username);
+    this.router.navigateByUrl("/user-profile/"+this.username).then(()=>window.location.reload());
   }
 
   logout(){
 
     this.router.navigateByUrl("/logout").then(()=>window.localStorage.clear()).then(()=>window.location.reload);
-    ;
+
   }
+   goHomeYankee(){
+    this.router.navigateByUrl("/").then(()=>window.location.reload());
+   }
 
 }

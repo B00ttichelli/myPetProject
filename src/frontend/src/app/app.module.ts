@@ -19,6 +19,7 @@ import { PostsComponent } from './posts/posts.component';
 import { CreatePostComponent } from './create-post/create-post.component';
 import { CommentsComponent } from './comments/comments.component';
 import { LogoutComponent } from './logout/logout.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { LogoutComponent } from './logout/logout.component';
     CreatePostComponent,
     CommentsComponent,
     LogoutComponent,
+    UserProfileComponent,
 
   ],
   imports: [

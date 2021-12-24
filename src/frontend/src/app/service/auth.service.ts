@@ -37,9 +37,9 @@ export class AuthService {
      return this.httpClient.post<LoginResponsePayload>('http://localhost:8080/api/auth/signIn',loginRequestPayload)
       .pipe(map(data=>{
         this.localStorageService.setAccessToken(data.accessToken)
-        this.localStorageService.setUsername(data.expiresAt)
+        this.localStorageService.setUsername(data.name)
         this.localStorageService.setRefreshToken(data.refreshToken);
-        this.localStorageService.setExpDate(data.name);
+        this.localStorageService.setExpDate(data.expiresAt);
         return true;
       }))
 
