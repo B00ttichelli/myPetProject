@@ -24,5 +24,4 @@ export class PostsComponent implements OnInit {
   goCreatePost(){
       this.route.params.subscribe(params=>{this.router.navigateByUrl('/create-post/'+params['id'])})
   }
-
 }

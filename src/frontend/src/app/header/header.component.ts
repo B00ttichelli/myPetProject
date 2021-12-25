@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../service/auth.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+
 
 
 
@@ -12,11 +13,13 @@ import {Router} from "@angular/router";
 export class HeaderComponent implements OnInit {
     username: string;
     isLoggedIn: boolean;
-  constructor(private authService: AuthService, private router:Router) { }
+    isCanPost:boolean;
+  constructor(private authService: AuthService, private router:Router, private activeRouter:ActivatedRoute ) { }
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.username  = this.authService.getUsername();
+
 
   }
 
@@ -32,5 +35,12 @@ export class HeaderComponent implements OnInit {
    goHomeYankee(){
     this.router.navigateByUrl("/").then(()=>window.location.reload());
    }
+
+  goCreatePost(){
+    this.activeRouter.params.subscribe(param=>{this.router.navigateByUrl('/create-post/'+param['id'])})
+  }
+
+
+
 
 }

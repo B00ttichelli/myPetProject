@@ -1,0 +1,21 @@
+
+.btnCreatePost{
+  border-radius: 4px;
+  background-color: #070707;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+.btnDiscard{
+  border-radius: 4px;
+  background-color: #ff0000;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
